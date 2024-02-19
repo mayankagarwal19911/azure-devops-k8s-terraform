@@ -21,10 +21,19 @@ stages:
     - bash: echo $(Build.SourcesDirectory)
     - bash: echo $(System.DefaultWorkingDirectory)
     - bash: ls -R $(System.DefaultWorkingDirectory)
-    - bash: echo $(Build.ArtifactStagingDirectory)
+    - bash: echo 
   - job: SecondJob
     steps:
     - bash: echo Build SecondJob $(pipelinevalue)
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          **/*.yaml
+          **/*.tf
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - bash: ls -R $(System.ArtifactStagingDirectory)
 
 # - stage: Dev
 #   dependsOn: Build
