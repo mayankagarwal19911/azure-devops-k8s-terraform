@@ -22,10 +22,6 @@ stages:
     - bash: echo $(System.DefaultWorkingDirectory)
     - bash: ls -R $(System.DefaultWorkingDirectory)
     - bash: echo 
-  - job: SecondJob
-    steps:
-    - bash: echo Build SecondJob $(pipelinevalue)
-
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -35,6 +31,11 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - bash: ls -R $(System.ArtifactStagingDirectory)
 
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'build and publish'
+        publishLocation: 'Container'
 # - stage: Dev
 #   dependsOn: Build
 #   jobs:
