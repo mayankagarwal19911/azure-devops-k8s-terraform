@@ -44,7 +44,7 @@ stages:
         runOnce:
           deploy:
             steps:
-              - script: echo QADeploy
+              - script: echo QADeploy. This will only be successful after manual approval!
           
     
 
